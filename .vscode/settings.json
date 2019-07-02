@@ -1,7 +1,11 @@
 {
     "python.pythonPath": "C:\\Users\\Pedro Trabuco\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
     "cSpell.words": [
+        "Veff",
+        "isdigit",
+        "iterrows",
         "numpy",
-        "pyplot"
+        "pyplot",
+        "vals"
     ]
 }
