@@ -4,3 +4,5 @@ tableWithValues.csv
 withoutBinaries.csv
 tableWithErrorColumn.csv
 tableWithValuesAndTypes.csv
+tableForHistograms.csv
+figures

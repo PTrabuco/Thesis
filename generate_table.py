@@ -1,11 +1,14 @@
 import pandas as pd
 import numpy as np
+import math
+
+# Had index, row before
 
 # Cleans all the entries with binary strings on file 'file' and 
 # column 'columnWithBinaries'
 def cleanBinaries(file, columnWithBinaries):
     L = []
-    for index, row in file.iterrows():
+    for _, row in file.iterrows():
         if (not row[columnWithBinaries][0].isdigit()) or (row[columnWithBinaries][0] != '0' and \
         row[columnWithBinaries][0] != '1' and row[columnWithBinaries][1] != '0' and row[columnWithBinaries][1] != '1'):
             L.append(row)
@@ -16,7 +19,7 @@ def cleanBinaries(file, columnWithBinaries):
 # the names 'names'
 def createColumnsWithValues(file, column, names):
     L = [names]
-    for index, row in file.iterrows():
+    for _, row in file.iterrows():
         if row[column][0].isdigit():
             L.append(row[column].replace('\"', '').split(';'))
         else:
@@ -30,7 +33,7 @@ def createColumnsWithValues(file, column, names):
 # corresponding value on column 'column' is equal to 'valueCondition, otherwise 1
 def createColumnsWithValuesCondition(file, column, valueCondition, names):
     L = [names]
-    for index, row in file.iterrows():
+    for _, row in file.iterrows():
         if row[column] == valueCondition:
             L.append(0)
         else:
@@ -38,6 +41,16 @@ def createColumnsWithValuesCondition(file, column, valueCondition, names):
     LToDataframe = pd.DataFrame(L[1:], columns=L[0])
     newTable = pd.concat([file.reset_index(drop=True), LToDataframe.reset_index(drop=True)], axis=1, sort=False)
     return newTable
+
+# Creates a table from file 'file', where column 'column' has to be a digit
+def createTableForHistograms(file, column):
+    L = []
+    for _, row in file.iterrows():
+        if (not math.isnan(row[column])):
+            L.append(row)
+    newTable = pd.DataFrame(L)
+    return newTable
+
 
 # Changes the types of data in the columns
 def changeTypeOfData(file):
@@ -92,6 +105,12 @@ print(tableWithValuesAndTypes.head())
 print(tableWithValuesAndTypes.tail())
 print(tableWithValuesAndTypes.dtypes)
 tableWithValuesAndTypes.to_csv("tableWithValuesAndTypes.csv", encoding='utf-8', index=False)
+
+# Creates table without rows without values in the most right columns
+tableForHistograms = createTableForHistograms(tableWithValuesAndTypes, 13)
+print(tableForHistograms.head())
+print(tableForHistograms.tail())
+tableForHistograms.to_csv("tableForHistograms.csv", encoding='utf-8', index=False)
 
 # Creates a column where every row has 0 if there isn't an error, 1 otherwise
 tableWithErrorColumn = createColumnsWithValuesCondition(tableWithValuesAndTypes, 11, -1, ['Error'])
