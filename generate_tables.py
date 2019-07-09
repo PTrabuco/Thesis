@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import math
 
-# Had index, row before
 
 # Cleans all the entries with binary strings on file 'file' and 
 # column 'columnWithBinaries'
@@ -73,6 +72,7 @@ def changeTypeOfData(file):
     tableWithValues['Tensão Catenária (Veff)'] = tableWithValues['Tensão Catenária (Veff)'].astype(float)
     return newTable
 
+path = 'C:/Users/Pedro Trabuco/Documents/Universidade/5º Ano/Tese/code/tables/'
 
 # Reads the data from the .csv file and drops unwanted/useless columns
 vals = pd.read_csv('exported_csv_commas_full_data.csv', encoding='utf_8', sep=';')
@@ -86,7 +86,7 @@ print("Number of entries on original table: {}".format(len(vals.index)))
 tableWithoutBinaries = cleanBinaries(vals, 'value')
 print(tableWithoutBinaries.head())
 print("Number of entries on cleaned table: {}".format(len(tableWithoutBinaries.index)))
-tableWithoutBinaries.to_csv("withoutBinaries.csv", encoding='utf-8', index=False)
+tableWithoutBinaries.to_csv(path + "withoutBinaries.csv", encoding='utf-8', index=False)
 
 # Creates columns with values from column 'value', with the given names
 names = ["Corrente eléctrica moderável (mA)", "Velocidade de referência (km/h)", "Velocidade real eixo 3 (km/h)", \
@@ -96,7 +96,7 @@ tableWithValues = createColumnsWithValues(tableWithoutBinaries, 0, names)
 print(tableWithValues.head())
 print(tableWithValues.tail())
 print("Number of entries on table with values: {}".format(len(tableWithValues.index)))
-tableWithValues.to_csv("tableWithValues.csv", encoding='utf-8', index=False)
+tableWithValues.to_csv(path + "tableWithValues.csv", encoding='utf-8', index=False)
 
 # Changes the types of data and drops irrelevant columns
 print(tableWithValues.dtypes)
@@ -104,16 +104,16 @@ tableWithValuesAndTypes = changeTypeOfData(tableWithValues)
 print(tableWithValuesAndTypes.head())
 print(tableWithValuesAndTypes.tail())
 print(tableWithValuesAndTypes.dtypes)
-tableWithValuesAndTypes.to_csv("tableWithValuesAndTypes.csv", encoding='utf-8', index=False)
+tableWithValuesAndTypes.to_csv(path + "tableWithValuesAndTypes.csv", encoding='utf-8', index=False)
 
 # Creates table without rows without values in the most right columns
 tableForHistograms = createTableForHistograms(tableWithValuesAndTypes, 13)
 print(tableForHistograms.head())
 print(tableForHistograms.tail())
-tableForHistograms.to_csv("tableForHistograms.csv", encoding='utf-8', index=False)
+tableForHistograms.to_csv(path + "tableForHistograms.csv", encoding='utf-8', index=False)
 
 # Creates a column where every row has 0 if there isn't an error, 1 otherwise
 tableWithErrorColumn = createColumnsWithValuesCondition(tableWithValuesAndTypes, 11, -1, ['Error'])
 print(tableWithErrorColumn.head())
 print(tableWithErrorColumn.tail())
-tableWithErrorColumn.to_csv("tableWithErrorColumn.csv", encoding='utf-8', index=False)
+tableWithErrorColumn.to_csv(path + "tableWithErrorColumn.csv", encoding='utf-8', index=False)
