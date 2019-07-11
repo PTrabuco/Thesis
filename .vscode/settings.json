@@ -2,10 +2,23 @@
     "python.pythonPath": "C:\\Users\\Pedro Trabuco\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
     "cSpell.words": [
         "Veff",
+        "arcgisimage",
+        "clim",
+        "dtick",
+        "iplot",
         "isdigit",
         "iterrows",
+        "llcrnrlat",
+        "llcrnrlon",
         "numpy",
+        "objs",
         "pyplot",
-        "vals"
+        "rgba",
+        "urcrnrlat",
+        "urcrnrlon",
+        "vals",
+        "xpixels",
+        "xtick",
+        "ytick"
     ]
 }
