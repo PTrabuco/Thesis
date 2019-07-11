@@ -6,6 +6,7 @@ import seaborn as sns
 path = "C:/Users/Pedro Trabuco/Documents/Universidade/5º Ano/Tese/code/"
 vals = pd.read_csv(path + "tables/tableForHistograms.csv", encoding="utf_8")
 
+# Customisation of matplotlib
 COLOR = "black"
 plt.rcParams["text.color"] = COLOR
 plt.rcParams["axes.labelcolor"] = COLOR
@@ -21,8 +22,7 @@ for c in range(13, 23):
     name = path + "figures/" + vals.columns[c].replace("/", "") + ".png"
     plt.savefig(name, bbox_inches="tight", dpi=300, transparent=True)
 
-# Using Seaborn
-# sns.distplot(vals["Velocidade real eixo 1 (km/h)"], kde=False, bins=50)
+
 
 
 #%%
