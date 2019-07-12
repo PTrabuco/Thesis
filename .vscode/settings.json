@@ -2,9 +2,11 @@
     "python.pythonPath": "C:\\Users\\Pedro Trabuco\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
     "cSpell.words": [
         "Veff",
+        "arange",
         "arcgisimage",
         "clim",
         "dtick",
+        "inplace",
         "iplot",
         "isdigit",
         "iterrows",
@@ -17,8 +19,10 @@
         "urcrnrlat",
         "urcrnrlon",
         "vals",
+        "xlim",
         "xpixels",
         "xtick",
+        "xticks",
         "ytick"
     ]
 }

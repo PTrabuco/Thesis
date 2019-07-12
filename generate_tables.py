@@ -43,10 +43,18 @@ def createColumnsWithValuesCondition(file, column, valueCondition, names):
 
 # Creates a table from file "file", where column "column" has to be a digit
 def createTableForHistograms(file, column):
+    error = 0
     L = []
     for _, row in file.iterrows():
         if (not math.isnan(row[column])):
-            L.append(row)
+            if(error == 0):
+                L.append(row)
+            else:
+                row["error_type"] = error
+                error = 0
+                L.append(row)
+        else:
+            error = row["error_type"]
     newTable = pd.DataFrame(L)
     return newTable
 
@@ -117,3 +125,5 @@ tableWithErrorColumn = createColumnsWithValuesCondition(tableWithValuesAndTypes,
 print(tableWithErrorColumn.head())
 print(tableWithErrorColumn.tail())
 tableWithErrorColumn.to_csv(path + "tableWithErrorColumn.csv", encoding="utf-8", index=False)
+
+print("DONE!")
