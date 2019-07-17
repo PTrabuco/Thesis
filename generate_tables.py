@@ -85,8 +85,6 @@ path = "C:/Users/Pedro Trabuco/Documents/Universidade/5º Ano/Tese/code/tables/"
 # Reads the data from the .csv file and drops unwanted/useless columns
 vals = pd.read_csv("exported_csv_commas_full_data.csv", encoding="utf_8", sep=';')
 print(vals.head())
-vals.drop(["error_sub_type"], axis=1)
-vals.drop(["date_train"], axis=1)
 print("Number of entries on original table: {}".format(len(vals.index)))
 
 # Creates copy of the table "vals" without the entries with binary numbers in 
@@ -116,6 +114,10 @@ tableWithValuesAndTypes.to_csv(path + "tableWithValuesAndTypes.csv", encoding="u
 
 # Creates table without rows without values in the most right columns
 tableForHistograms = createTableForHistograms(tableWithValuesAndTypes, 13)
+tableForHistograms = tableForHistograms.drop(["value"], axis=1)
+tableForHistograms = tableForHistograms.drop(["error_sub_type"], axis=1)
+tableForHistograms = tableForHistograms.drop(["date_train"], axis=1)
+tableForHistograms = tableForHistograms.drop(["event_type"], axis=1)
 print(tableForHistograms.head())
 print(tableForHistograms.tail())
 tableForHistograms.to_csv(path + "tableForHistograms.csv", encoding="utf-8", index=False)
