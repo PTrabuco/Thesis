@@ -80,6 +80,23 @@ def changeTypeOfData(file):
     tableWithValues["Tensão Catenária (Veff)"] = tableWithValues["Tensão Catenária (Veff)"].astype(float)
     return newTable
 
+# Eliminates all the entries where coord_lat and coord_lon are not within the
+# specified limits, passed as lists
+def eliminatesBasedOnCoordinates(file, columnLat, columnLon, latList, lonList):
+    minLat = min(latList)
+    maxLat = max(latList)
+    minLon = min(lonList)
+    maxLon = max(lonList)
+    L = []
+
+    for _, row in file.iterrows():
+        if row[columnLat] >= minLat and row[columnLat] <= maxLat and \
+           row[columnLon] >= minLon and row[columnLon] <= maxLon:
+            L.append(row)
+    newTable = pd.DataFrame(L)
+    return newTable
+
+
 path = "C:/Users/Pedro Trabuco/Documents/Universidade/5º Ano/Tese/code/tables/"
 
 # Reads the data from the .csv file and drops unwanted/useless columns
@@ -127,5 +144,14 @@ tableWithErrorColumn = createColumnsWithValuesCondition(tableWithValuesAndTypes,
 print(tableWithErrorColumn.head())
 print(tableWithErrorColumn.tail())
 tableWithErrorColumn.to_csv(path + "tableWithErrorColumn.csv", encoding="utf-8", index=False)
+
+# Creates a new table by erasing the entries that have coordinates between a
+# specific set of values
+tableForNewMaps = eliminatesBasedOnCoordinates(vals, 1, 2, [38.596012, 38.595026, 38.593483, 38.591350], \
+                                                [-9.073478, -9.070251, -9.065484, -9.063185])
+print(tableForNewMaps.head())
+print(tableForNewMaps.tail())
+tableForNewMaps.to_csv(path + "tableForNewMaps.csv", encoding="utf-8", index=False)
+
 
 print("DONE!")

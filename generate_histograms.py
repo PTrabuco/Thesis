@@ -11,7 +11,8 @@ def bins_labels(bins, **kwargs):
 firstColumn = 9
 lastColumn = 19
 path = "C:/Users/Pedro Trabuco/Documents/Universidade/5º Ano/Tese/code/"
-vals = pd.read_csv(path + "tables/tableForHistograms.csv", encoding="utf_8")
+path2 = "figures/Without workshop/"
+vals = pd.read_csv(path + "tables/tableForNewMaps2.csv", encoding="utf_8")
 
 # Customisation of matplotlib
 COLOR = "black"
@@ -28,7 +29,7 @@ for c in range(firstColumn, lastColumn):
     hist1 = vals.hist(column=vals.columns[c], grid=True, bins=25, color="#66cc99")
     plt.xlabel("Value")
     plt.ylabel("Frequency")
-    name = path + "figures/" + vals.columns[c].replace("/", "") + ".png"
+    name = path + path2 + vals.columns[c].replace("/", "") + ".png"
     plt.savefig(name, bbox_inches="tight", dpi=300, transparent=True)
 
 # Generating dataframe with rows with errors
@@ -46,7 +47,7 @@ bins_labels(bins, fontsize=20)
 plt.title("Error types")
 plt.xlabel("Error")
 plt.ylabel("Frequency")
-name = path + "figures/" + "Errors" + ".png"
+name = path + path2 + "Errors" + ".png"
 plt.savefig(name, bbox_inches="tight", dpi=300, transparent=True)
 
 # Generating histograms from rows with errors, from values from column
@@ -58,7 +59,7 @@ for c in range(firstColumn, lastColumn):
     plt.title(name)
     plt.xlabel("Value")
     plt.ylabel("Frequency")
-    plt.savefig(path + "figures/" + name + ".png", bbox_inches="tight", dpi=300, 
+    plt.savefig(path + path2 + name + ".png", bbox_inches="tight", dpi=300, 
                 transparent=True)
 
 # Generating histograms with and withour errors
@@ -79,7 +80,7 @@ for c in range(firstColumn, lastColumn):
     plt.gca().set(title=name, ylabel="Frequency")
     plt.xlim(minValue, maxValue)
     plt.legend()
-    plt.savefig(path + "figures/" + name + ".png", bbox_inches="tight", dpi=300, 
+    plt.savefig(path + path2 + name + ".png", bbox_inches="tight", dpi=300, 
                 transparent=True)
 
 """for c in range(firstColumn, lastColumn):
