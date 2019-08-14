@@ -4,10 +4,11 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 
 path = "C:/Users/Pedro Trabuco/Documents/Universidade/5º Ano/Tese/code/"
-vals = pd.read_csv(path + "tables/tableForNewMaps2.csv", encoding="utf-8")
-column = "Comando esforço (kN)"
-title = "Map showing the train's commanded effort on each location"
-labelText = "Effort (kN)"
+table = "tableWithSkatingData_5_1.csv"
+vals = pd.read_csv(path + "tables/" + table, encoding="utf-8")
+column = "Velocidade de referência (km/h)"
+title = "Map showing where skating happened " + table.replace(".csv", "").split('_', 1)[-1]
+labelText = "Velocity (km/h)"
 
 # 0. Extract the data that's going to be used
 lat = vals["coord_lat"].iloc[::1].values
@@ -38,7 +39,7 @@ plt.rcParams["axes.labelcolor"] = COLOR
 plt.rcParams["xtick.color"] =  COLOR
 plt.rcParams["ytick.color"] = COLOR
 plt.rcParams["font.family"] = "Times New Roman"
-plt.clim(0, 255)
+plt.clim(0, 25)
 cb = plt.colorbar(shrink=0.595)
 cb.set_label(label=labelText)
 # plt.clim(0, 255)
