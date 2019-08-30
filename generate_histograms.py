@@ -11,8 +11,8 @@ def bins_labels(bins, **kwargs):
 firstColumn = 9
 lastColumn = 19
 path = "C:/Users/Pedro Trabuco/Documents/Universidade/5º Ano/Tese/code/"
-path2 = "figures/Without workshop/"
-vals = pd.read_csv(path + "tables/tableForNewMaps2.csv", encoding="utf_8")
+path2 = "figures/Skating/"
+vals = pd.read_csv(path + "tables/tableWithSkatingData_5_1.csv", encoding="utf_8")
 
 # Customisation of matplotlib
 COLOR = "black"
@@ -29,8 +29,11 @@ for c in range(firstColumn, lastColumn):
     hist1 = vals.hist(column=vals.columns[c], grid=True, bins=25, color="#66cc99")
     plt.xlabel("Value")
     plt.ylabel("Frequency")
-    name = path + path2 + vals.columns[c].replace("/", "") + ".png"
+    plt.title("")
+    name = path + path2 + vals.columns[c].replace("/", "") + "_50bins.png"
     plt.savefig(name, bbox_inches="tight", dpi=300, transparent=True)
+    # plt.show()
+#%%
 
 # Generating dataframe with rows with errors
 tableWithErrors = vals.loc[vals["error_type"] != -1].reset_index()
@@ -44,7 +47,8 @@ tableWithoutErrors.drop("index", axis=1, inplace=True)
 bins = range (1, 7)
 hist_error = tableWithErrors.hist(column="error_type", bins=bins, grid=True, color="#66cc99")
 bins_labels(bins, fontsize=20)
-plt.title("Error types")
+# plt.title("Error types")
+plt.title("")
 plt.xlabel("Error")
 plt.ylabel("Frequency")
 name = path + path2 + "Errors" + ".png"
@@ -56,7 +60,8 @@ for c in range(firstColumn, lastColumn):
     hist_error_value = tableWithErrors.hist(column=tableWithErrors.columns[c], grid=True, 
                        bins=25, color="#ff3333")
     name = vals.columns[c].replace("/", "") + " in errors"
-    plt.title(name)
+    # plt.title(name)
+    plt.title("")
     plt.xlabel("Value")
     plt.ylabel("Frequency")
     plt.savefig(path + path2 + name + ".png", bbox_inches="tight", dpi=300, 
@@ -80,6 +85,7 @@ for c in range(firstColumn, lastColumn):
     plt.gca().set(title=name, ylabel="Frequency")
     plt.xlim(minValue, maxValue)
     plt.legend()
+    plt.title("")
     plt.savefig(path + path2 + name + ".png", bbox_inches="tight", dpi=300, 
                 transparent=True)
 
