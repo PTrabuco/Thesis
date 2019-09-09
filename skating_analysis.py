@@ -1,7 +1,7 @@
 import pandas as pd
 
-minValue = 1
-percentage = 0.05
+minValue = 5
+percentage = 0.1
 
 def comparePercentage(row, percentage, columns):
     length = len(columns)
