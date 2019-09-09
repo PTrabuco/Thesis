@@ -96,6 +96,18 @@ def eliminatesBasedOnCoordinates(file, columnLat, columnLon, latList, lonList):
     newTable = pd.DataFrame(L)
     return newTable
 
+# Replaces all entries from file file at columns columns with the values present
+# at table table
+def replaceNamesWithNumbers(file, columns, table, columnName, columnCode):
+    L = []
+    setTable = table.drop("type", axis = 1).set_index(columnName).T.to_dict('list')
+    for _, row in file.iterrows():
+        L.append(row)
+        for c in columns:
+            L[-1][c] = setTable.get(row[c])[0]
+    newTable = pd.DataFrame(L)
+    return newTable
+
 
 path = "C:/Users/Pedro Trabuco/Documents/Universidade/5º Ano/Tese/code/tables/"
 
@@ -153,5 +165,19 @@ print(tableForNewMaps.head())
 print(tableForNewMaps.tail())
 tableForNewMaps.to_csv(path + "tableForNewMaps.csv", encoding="utf-8", index=False)
 
+# Creates table for training
+tableForTraining = createColumnsWithValuesCondition(vals, 8, -1, ["Error"])
+print(tableForTraining.head())
+print(tableForTraining.tail())
+tableForTraining.to_csv(path + "tableForTraining.csv", encoding="utf-8", index=False)
+
+# Creates second table for training
+table = pd.read_csv(path + "carriages.csv", encoding="utf_8")
+tableForTraining2 = replaceNamesWithNumbers(tableForTraining, ["carriage_reader", "carriage_source"], table, "name", "code")
+print(tableForTraining2.head())
+print(tableForTraining2.tail())
+tableForTraining2.to_csv(path + "tableForTraining2.csv", encoding="utf-8", index=False)
+
 
 print("DONE!")
+#%%
