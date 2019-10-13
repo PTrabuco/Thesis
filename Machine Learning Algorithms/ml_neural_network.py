@@ -48,6 +48,7 @@ for batch in batch_size:
             classifier = Sequential()
 
             # Adding the input layer and the first hidden layer
+            # Ignore the errors on Dense()
             classifier.add(Dense(output_dim = round(X_train.shape[1]/2), init = 'uniform', activation = 'relu', input_dim = X_train.shape[1]))
             # Adding the second hidden layer
             classifier.add(Dense(output_dim = round(X_train.shape[1]/4), init = 'uniform', activation = 'relu'))
